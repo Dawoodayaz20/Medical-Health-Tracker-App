@@ -115,15 +115,6 @@ export default function Index() {
               <Text style={styles.infoText}>Gender: <Text style={styles.infoValue}>{profile.gender}</Text></Text>
             </View>
 
-            <View style={styles.healthSection}>
-              <View style={styles.healthBadge}>
-                <Text style={styles.healthLabel}>Health</Text>
-                <Text style={styles.healthValue}>80/100</Text>
-              </View>
-              <TouchableOpacity style={styles.editButton}>
-                <Text style={styles.editText}>Edit</Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </LinearGradient>
 
@@ -240,35 +231,6 @@ const styles = StyleSheet.create({
         fontWeight: "400"
       },
     })
-  },
-  healthSection: {
-    alignItems: "flex-end",
-  },
-  healthBadge: {
-    backgroundColor: "rgba(255,255,255,0.4)",
-    borderRadius: 10,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    alignItems: "center",
-  },
-  healthLabel: {
-    fontSize: 12,
-    fontWeight: "600",
-  },
-  healthValue: {
-    fontSize: 16,
-    fontWeight: "800",
-  },
-  editButton: {
-    backgroundColor: "rgba(255,255,255,0.4)",
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    marginTop: 6,
-  },
-  editText: {
-    color: "#fff",
-    fontSize: 13,
   },
   cardsGrid: {
     flexDirection: "row",
