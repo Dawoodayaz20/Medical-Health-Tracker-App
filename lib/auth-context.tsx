@@ -1,0 +1,101 @@
+import { ID, Models } from "appwrite";
+import { createContext, useContext, useEffect, useState } from "react";
+import { account } from "./appwriteConfig";
+import { saveUserInfo } from "./ProfileData_DB/SaveProfile";
+
+type AuthContextType = {
+    user: Models.User<Models.Preferences> | null;
+    isLoadingUser: boolean
+    signUp: (email: string, password: string, name:string, age:string, gender:string) => Promise<string | null>;
+    signIn: (email: string, password: string) => Promise<string | null>;
+    signOut: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+// : Promise<string | null>
+
+export function AuthProvider({ children }: {children: React.ReactNode}) {
+    const [user, setUser] = useState<Models.User<Models.Preferences> | null>(
+        null
+    );
+
+    const[isLoadingUser, setisLoadingUser] = useState<boolean>(true)
+
+    useEffect(() => {
+        getUser()
+    }, [])
+
+    const getUser = async () => {
+        try{
+            const session = await account.get()
+            setUser(session)
+        } catch (error) {
+            setUser(null)
+        } finally {
+            setisLoadingUser(false);
+        }
+    }
+
+    const signUp = async (email: string, password: string, name:string, age: string, gender: string) => {
+        try {
+            const userAccount = await account.create(ID.unique(), email, password);
+            if(userAccount){
+                console.log("Account created successfully!")
+                await account.createEmailPasswordSession(email, password);
+                const session = await account.get()
+                if(session){
+                    setUser(session)
+                    const saveInfo = await saveUserInfo(email, password, name, age, gender);
+                }
+            }
+            else{
+                console.log("Account creation failed!")
+            }
+            return null;
+        } catch (error) {
+            if (error instanceof Error) {
+                return error.message;
+            }
+            return "An error occured during signUp";
+        }
+    }
+
+    const signIn = async (email: string, password: string) => {
+        try{
+        await account.createEmailPasswordSession(email, password)
+        const session = await account.get()
+        setUser(session)
+        return null;
+    } catch (error){
+        if (error instanceof Error){
+            return error.message
+        }
+
+        return "An error occured during signup"
+    }
+    }
+
+    const signOut = async () => {
+        try{
+            await account.deleteSession("current");
+            setUser(null);
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    return (
+        <AuthContext.Provider value={{user, isLoadingUser, signUp, signIn, signOut }}>
+            {children}
+        </AuthContext.Provider>
+);
+}
+
+export function useAuth() {
+    const context = useContext(AuthContext)
+    if (context === undefined) {
+        throw new Error("UseAuth must be inside of the Auth Provider")
+    }
+
+    return context
+}
