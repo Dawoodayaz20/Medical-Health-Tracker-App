@@ -55,8 +55,8 @@ export default function MedicinesPage() {
               <View style={{ flex: 1 }}>
                 <Text style={styles.medicineName}>{item.name}</Text>
                 <Text style={styles.medicineDetail}>For: {item.illness}</Text>
-                <Text style={styles.medicineDetail}>Dosage: {item.dosage}</Text>
-                <Text style={styles.medicineDetail}>Timing: {item.dosage}</Text>
+                <Text style={styles.medicineDetail}>Total Dosage: {item.dosage}</Text>
+                <Text style={styles.medicineDetail}>Timing: {item.time}</Text>
                 <Text style={styles.medicineDetail}>{item.detail}</Text>
               </View>
               <TouchableOpacity onPress={() => DeleteMedicine(item.id)}>

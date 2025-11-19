@@ -30,5 +30,6 @@ type Medicines = {
     name: string,
     illness: string,
     dosage: string,
+    time: string,
     detail: string
 }
