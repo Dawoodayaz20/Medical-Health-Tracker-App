@@ -56,7 +56,6 @@ export default function MedicalAssistant() {
 
 // };
 
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
     <KeyboardAvoidingView
@@ -65,14 +64,14 @@ export default function MedicalAssistant() {
       keyboardVerticalOffset={Platform.OS === "android" ? 50 : 60}
     >
       {/* Header gradient bar */}
-      <LinearGradient
+      {/* <LinearGradient
         colors={["#38bdf8", "#2563eb"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={styles.header}
       >
         <Text style={styles.headerText}>Medical Assistant 🤖</Text>
-      </LinearGradient>
+      </LinearGradient> */}
 
       {/* Chat messages */}
       <ScrollView contentContainerStyle={styles.messages} >

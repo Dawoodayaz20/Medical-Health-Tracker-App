@@ -143,7 +143,6 @@ export default function MedicalRecords() {
                   </ScrollView>
                   )}
 
-
               </View>
               <View style={styles.actions}>
                 <TouchableOpacity
@@ -234,7 +233,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#EFF6FF",
     padding: 16,
-    paddingTop: 40,
+    paddingTop: 55,
   },
   header: {
     flexDirection: "row",
@@ -243,7 +242,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#1E40AF",
   },

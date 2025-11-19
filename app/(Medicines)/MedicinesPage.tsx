@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#EFF6FF", // light blue background
     padding: 20,
-    paddingTop: 30,
+    paddingTop: 55,
   },
   header: {
     flexDirection: "row",
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#1E40AF",
   },
