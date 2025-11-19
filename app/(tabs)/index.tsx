@@ -18,9 +18,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-
-export default function Index() {
-  
+export default function Index() {  
   const reminder = require('../../assets/images/reminder.png');
   const medicalRec = require('../../assets/images/medicalrecords.png');
   const medicalassist = require('../../assets/images/medicalassist.png');

@@ -29,32 +29,13 @@ export default function Reminders() {
       fetchReminders();
     }, [])
     );
-
-    useEffect(() => {
-      const fetchReminders = async() => {
-        try
-        {
-          const reminders = await getReminders()
-          if(reminders){
-            setReminder(reminders)
-          }
-        }
-        catch(error) {
-            console.log("There was an error fetching the notes", error)
-        }
-      }
-      if(isFocused){
-        fetchReminders();
-      }
-    }, [isFocused])
-
     
     return (
       <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>
-          <ArrowLeft size={18} color="black" />
+        <TouchableOpacity style={styles.iconButton} onPress={() => router.push({ pathname: "/" })}>
+          <ArrowLeft size={22} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Medical Reminders</Text>
 
@@ -74,7 +55,8 @@ export default function Reminders() {
           <View style={styles.reminderCard}>
             <View style={{ flex: 1 }}>
               <Text style={styles.reminderTitle}>{item.title}</Text>
-              <Text style={styles.reminderTime}>{item.hour}:{item.minute}</Text>
+              <Text style={styles.reminderTime}>{item.hour.toString().padStart(2, "0")}:{item.minute.toString().padStart(2, "0")}</Text>
+              <Text style={styles.reminderDescription}>{item.description}</Text>
             </View>
 
             <View style={styles.actions}>
@@ -116,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#EFF6FF",
     paddingHorizontal: 16,
-    paddingTop: 58,
+    paddingTop: 55,
   },
   header: {
     flexDirection: "row",
@@ -158,6 +140,10 @@ const styles = StyleSheet.create({
   reminderTime: {
     fontSize: 14,
     color: "#6B7280",
+  },
+  reminderDescription: {
+    fontSize: 12,
+    color: "#4c525cff",
   },
   actions: {
     flexDirection: "row",

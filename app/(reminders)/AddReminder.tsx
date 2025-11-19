@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react-native";
 import { saveReminder, UpdateReminder } from "../../lib/Reminder_DB/SaveReminder";
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { scheduleNotification, cancelNotification } from "./notificationUtils";
+import { getReminders } from "@/lib/Reminder_DB/fetch_Delete";
 
 export default function AddReminder () {
     const { reminder, setReminder } = useContext(RemindersContext);
@@ -29,20 +30,15 @@ export default function AddReminder () {
         return;
       }
       try{
-        console.log("Scheduling notification...");
         const id = await scheduleNotification(title, description, hour, minute);
-        console.log("Notification scheduled:", id);
         if(id){
           await saveReminder(title, description, id, hour, minute);
-          console.log("Reminder saved!");
-          setReminder(reminder)
           Alert.alert("✅ Reminder Saved!");
         }
         else{
           Alert.alert("There was an error scheduling the reminder!")
         }
       } catch (err) {
-        console.log("There was an error saving the reminder!", err);
         Alert.alert("There was an error scheduling the reminder!", err as string)
       }
     }
@@ -69,7 +65,7 @@ export default function AddReminder () {
           if(reminderId){
             await UpdateReminder(remindId, title, descript, reminderId, hrs, mins)
           }
-          Alert.alert("The reminder has been updated successfully!")
+          Alert.alert("Reminder updated successfully!")
         }
       }
        catch(err){
@@ -143,7 +139,7 @@ export default function AddReminder () {
             style={styles.button}
             onPress={() => {
               handleUpdateReminder(title, description, hour!, minute!);
-              router.push("/(reminders)/reminderPage");
+              router.back();
             }}
           >
             Update Reminder
