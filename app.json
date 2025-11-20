@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MedicalHealthTrackerApp",
+    "name": "Medical Health Tracker",
     "slug": "MedicalHealthTrackerApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,9 +14,8 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#ffffff",
-        "foregroundImage": "./assets/images/foregoundIcon.png",
-        "backgroundImage": "./assets/images/icon.png",
-        "monochromeImage": "./assets/images/icon.png"
+        "foregroundImage": "./assets/images/foregroundIcon1.png",
+        "backgroundImage": "./assets/images/backgroundIcon.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
