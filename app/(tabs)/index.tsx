@@ -1,12 +1,13 @@
 import * as Notifications from "expo-notifications"
 import { getUserProfile } from "@/lib/appwrite_queries";
 import { useRouter } from "expo-router";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Image, Platform, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from 'react-native-paper';
 import { ProfileContext } from "../../lib/ProfileData_DB/profileContext";
 import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -61,19 +62,21 @@ export default function Index() {
         userData()
       }, [])
 
-    // UseEffect for getting profile picture:
-    useEffect(() => {
-      const loadProfileImage = async () => {
-        try {
-          const uri = await AsyncStorage.getItem("profileImage");
-          if (uri) setImage(uri);
-        } catch (error) {
-          console.error("Error loading profile image:", error);
-        }
-      };
+    // UseFocusEffect for getting profile picture:
+    useFocusEffect(
+      useCallback(() => {
+        const loadProfileImage = async () => {
+          try {
+            const uri = await AsyncStorage.getItem("profileImage");
+            if (uri) setImage(uri);
+          } catch (error) {
+            console.error("Error loading profile image:", error);
+          }
+        };
 
-      loadProfileImage();
-    }, [])
+        loadProfileImage();
+      }, [])
+    ) 
 
   return (
     <SafeAreaView style={styles.container}>

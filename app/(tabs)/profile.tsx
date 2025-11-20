@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
 import * as ImagePicker from 'expo-image-picker';
 import React, { useContext, useState } from "react";
@@ -9,6 +9,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { saveUserInfo, UpdateUserInfo } from "../../lib/ProfileData_DB/SaveProfile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "expo-router";
 
 export default function LoginScreen() {
     const {signOut} = useAuth();
@@ -34,6 +35,7 @@ export default function LoginScreen() {
     if(!result.canceled) {
       try {
       await AsyncStorage.setItem("profileImage", result.assets[0].uri);
+      setImage(result.assets[0].uri)
       console.log("Image saved locally!");
       } catch (error) {
         console.error("Error saving image locally:", error);
@@ -42,18 +44,17 @@ export default function LoginScreen() {
     };
 
     useEffect(() => {
-        const loadProfileImage = async () => {
-          try {
-            const uri = await AsyncStorage.getItem("profileImage");
-            if (uri) setImage(uri);
-          } catch (error) {
-            console.error("Error loading profile image:", error);
-          }
-        };
+      const loadProfileImage = async () => {
+        try {
+          const uri = await AsyncStorage.getItem("profileImage");
+          if (uri) setImage(uri);
+        } catch (error) {
+          console.error("Error loading profile image:", error);
+        }
+      };
 
-        loadProfileImage();
-        }, [])
-
+      loadProfileImage();
+      }, [])
 
     const updateUserProfile = async () => {
       try{
